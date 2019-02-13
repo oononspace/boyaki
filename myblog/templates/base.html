@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <title>{% if request.path != '/' %}{% block title %}{% endblock %} | {% endif %}BOYAKI</title>
+</head>
+<body>
+<div class="container">
+    <header>
+        <p class="site-name">
+            <a href="{% url 'blogs:index' %}">
+                <p class="text-center">
+                    <img src="{% static 'myblog/logo1.png' %}">
+            </p>
+        </a>
+        </p>
+        <nav class="nav justify-content-center">
+                {% if user.is_authenticated %}
+                <li><a class="nav-link active" href="{% url 'logout' %}" class="logout">ログアウト</a></li>
+                {% else %}
+                <li><a class="nav-link active" href="{% url 'accounts:signup' %}" class="signup">アカウント登録</a></li>
+                <li><a class="nav-link active" href="{% url 'login' %}" class="login">ログイン</a></li>
+                {% endif %}
+                <button type="button" class="btn btn-outline-warning"><a href="{% url 'blogs:create' %}">ぼやく</a></button>
+        </nav>
+    </header>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+</body>
+</html>

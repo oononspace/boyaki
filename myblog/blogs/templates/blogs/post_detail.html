@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}アカウント登録{% endblock %}
+
+{% block content %}
+<p>{{ object.title }}</p>
+<section class="post-text">
+    {{ object.text　| linebreaksbr }}
+    <p>投稿者: {{ object.author }}</p>
+</section>
+<section class="post-date">
+    <p>投稿日:&nbsp;{{ object.created_at }}<span>/</span>更新日:&nbsp;{{ object.updated_at }}</p>
+</section>
+{# ownership #}
+{% if request.user.id == object.author_id %}
+<section class="post-edit">
+    <a class="act" href="{% url 'blogs:update' post.pk %}">編集</a>
+    <a class="act" href="{% url 'blogs:delete' post.pk %}">削除</a>
+</section>
+{% endif %}
+<section>
+    <p><a href="javascript:history.back()">&lt; 戻る</a></p>
+</section>
+{% endblock %}

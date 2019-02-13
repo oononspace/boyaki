@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object|yesno:'編集,投稿'}}内容{% endblock %}
+
+{% block content %}
+{# https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#yesno #}
+<p>{{ object|yesno:'編集,投稿'}}内容</p>
+<section class="common-form">
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="submit">{{ object|yesno:'更新,投稿'}}する</button>
+    </form>
+</section>
+{% endblock %}

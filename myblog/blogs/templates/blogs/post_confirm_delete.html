@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Post{% endblock %}
+
+{% block content %}
+<h3>投稿の削除</h3>
+<section class="common-form">
+    <p>"{{ object.title }}"を本当に削除しますか ?</p>
+    <form action="" method="post">{% csrf_token %}
+        <button type="submit" class="submit delete">削除</button>
+    </form>
+</section>
+<section>
+    <p><a href="javascript:history.back()">&lt; 戻る</a></p>
+</section>
+{% endblock %}

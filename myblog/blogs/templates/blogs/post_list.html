@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<p class="text-center">{{ user }}でログイン中</p>
+{% endif %}
+
+<p>投稿一覧</p>
+
+<table class="table">
+        <tbody>
+            <section class="post-list">
+                {% for post in object_list %}
+                    <tr>
+                        <td>
+                            <h4><a href="{% url 'blogs:detail' post.pk %}">{{ post.title }}</a></h4>
+                            <p>{{ post.text| linebreaksbr }}</p>
+                            <p>投稿者: {{ object.author }}</p>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <class="no-post">
+                        <p>投稿記事がありません。</p>
+                        <p><a class="act" href="{% url 'blogs:create' %}">Add New Post</a></p>
+                {% endfor %}
+            </section>
+         </tbody>
+</table>
+
+
+{% if is_paginated %}
+<section class="pagination">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">&lt;&lt; 前へ</a>
+            {% else %}
+            &lt;&lt; 前へ
+            {% endif %}
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">次へ &gt;&gt;</a>
+            {% else %}
+            次へ &gt;&gt;
+            {% endif %}
+</section>
+{% endif %}
+{% endblock %}
